@@ -6,10 +6,10 @@ import (
 
 // AnagramRequest to be stored and queried later
 type AnagramRequest struct {
-    ID	int
-		FirstWord string
-		SecondWord string
-		Result bool
+    ID	int `json:"id"`
+		FirstWord string `json:"firstWord"`
+		SecondWord string `json:"secondWord"`
+		Result bool `json:"result"`
 }
 
 func (s AnagramRequest) String() string {

@@ -23,6 +23,7 @@ const TopAnagramsBoard: FunctionComponent<TopAnagramsBoardProps> = ({
         {topAnagrams.map(
           ({ firstWord, secondWord, count }: TopAnagram, i: number) => (
             <MDBListGroupItem
+              data-test-id={`${firstWord}-${secondWord}`}
               key={i}
               className="text-center"
               style={{ userSelect: "none" }}

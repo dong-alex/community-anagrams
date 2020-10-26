@@ -93,7 +93,11 @@ const AnagramRequestCard: FunctionComponent<{}> = () => {
               Check Anagram
             </MDBTypography>
             {resultMessage !== "" && (
-              <div className="alert alert-dark text-center" role="alert">
+              <div
+                className="alert alert-dark text-center"
+                data-test-id="result-alert"
+                role="alert"
+              >
                 {resultMessage}
               </div>
             )}
@@ -102,13 +106,18 @@ const AnagramRequestCard: FunctionComponent<{}> = () => {
               <strong>Do not include special characters and numbers.</strong>
             </p>
             {errorMessage !== "" && (
-              <div className="alert alert-danger text-center" role="alert">
+              <div
+                className="alert alert-danger text-center"
+                data-test-id="error-alert"
+                role="alert"
+              >
                 {errorMessage}
               </div>
             )}
             <div className="grey-text">
               <MDBInput
                 id="first-word-input"
+                data-test-id="first-word-input"
                 name="firstWord"
                 onChange={handleChange}
                 label="First Word"
@@ -117,6 +126,7 @@ const AnagramRequestCard: FunctionComponent<{}> = () => {
               />
               <MDBInput
                 id="second-word-input"
+                data-test-id="second-word-input"
                 name="secondWord"
                 onChange={handleChange}
                 label="Second Word"
@@ -127,6 +137,7 @@ const AnagramRequestCard: FunctionComponent<{}> = () => {
             <div className="text-center">
               <MDBBtn
                 onClick={handleSubmitAnagramCheck}
+                data-test-id="anagram-submission-button"
                 color="blue"
                 disabled={disableSubmission}
               >

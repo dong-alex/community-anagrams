@@ -3,7 +3,6 @@ import {
   MDBBox,
   MDBListGroup,
   MDBListGroupItem,
-  MDBTypography,
 } from "mdbreact";
 import { TopAnagram, TopAnagramsBoardProps } from "../types";
 
@@ -12,18 +11,17 @@ const TopAnagramsBoard: FunctionComponent<TopAnagramsBoardProps> = ({
 }) => {
   return (
     <MDBBox className="mb-5">
-      <MDBTypography
+      <h5
         className="text-center pt-5 pb-5"
-        tag="h5"
-        variant="h5-responsive"
+        data-testid="top-anagrams-board-header"
       >
         Top 10 Most Requested Anagram Checks
-      </MDBTypography>
+      </h5>
       <MDBListGroup>
         {topAnagrams.map(
           ({ firstWord, secondWord, count }: TopAnagram, i: number) => (
             <MDBListGroupItem
-              data-test-id={`${firstWord}-${secondWord}`}
+              data-testid="top-anagram-item"
               key={i}
               className="text-center"
               style={{ userSelect: "none" }}

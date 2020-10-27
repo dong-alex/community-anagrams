@@ -3,21 +3,15 @@ import React, {
   useEffect,
   FunctionComponent,
   FormEvent,
+  ChangeEvent,
 } from "react";
-import {
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCardText,
-  MDBInput,
-  MDBTypography,
-} from "mdbreact";
-import { AnagramSubmission } from "../types";
+import { MDBBtn, MDBCard, MDBCardBody, MDBInput } from "mdbreact";
+import { AnagramSubmission, AnagramRequestCardProps } from "../types";
 import isAlphabetical from "./utils/isAlphabetical";
-import useAnagrams from "./hooks/useAnagrams";
 
-const AnagramRequestCard: FunctionComponent<{}> = () => {
-  const { onSaveAnagram } = useAnagrams();
+const AnagramRequestCard: FunctionComponent<AnagramRequestCardProps> = ({
+  onSaveAnagram,
+}) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [resultMessage, setResultMessage] = useState<string>("");
   const [disableSubmission, setDisableSubmission] = useState<boolean>(false);
@@ -42,9 +36,10 @@ const AnagramRequestCard: FunctionComponent<{}> = () => {
   }, [submission]);
 
   const handleChange = (event: FormEvent<HTMLInputElement>): void => {
+    const castEvent = event as ChangeEvent<HTMLInputElement>;
     setSubmission({
       ...submission,
-      [event.currentTarget.name]: event.currentTarget.value,
+      [castEvent.target.name]: castEvent.target.value,
     });
   };
 
@@ -60,7 +55,6 @@ const AnagramRequestCard: FunctionComponent<{}> = () => {
       handleDisplayResult(result);
       return;
     } catch (err) {
-      console.log("Error with handleSubmitAnagramCheck", err);
       setErrorMessage(
         "There was an issue with checking the words, please try again."
       );
@@ -74,7 +68,7 @@ const AnagramRequestCard: FunctionComponent<{}> = () => {
     let savedFirstWord = firstWord;
     let savedSecondWord = secondWord;
 
-    const successString = `'${savedFirstWord}' and '${savedSecondWord}' are not anagrams. Feel free to check other words and see if they are anagrams.`;
+    const successString = `Great! '${savedFirstWord}' and '${savedSecondWord}' are anagrams. Feel free to check other words and see if they are anagrams.`;
     const failureString = `Unfortunately '${savedFirstWord}' and '${savedSecondWord}' are not anagrams. Feel free to check other words and see if they are anagrams.`;
 
     setResultMessage(result ? successString : failureString);
@@ -83,69 +77,60 @@ const AnagramRequestCard: FunctionComponent<{}> = () => {
   return (
     <MDBCard className="mt-5">
       <MDBCardBody>
-        <MDBCardText>
-          <form>
-            <MDBTypography
-              tag="h4"
-              variant="h4-responsive"
-              className="text-center mb-4"
+        <h4 className="text-center mb-4">Check Anagram</h4>
+        {resultMessage !== "" && (
+          <div
+            className="alert alert-dark text-center"
+            data-testid="result-alert"
+            role="alert"
+          >
+            {resultMessage}
+          </div>
+        )}
+        <p className="text-center ">
+          Check if two words are anagrams here.{" "}
+          <strong>Do not include special characters and numbers.</strong>
+        </p>
+        {errorMessage !== "" && (
+          <div
+            className="alert alert-danger text-center"
+            data-testid="error-alert"
+            role="alert"
+          >
+            {errorMessage}
+          </div>
+        )}
+        <form>
+          <div className="grey-text">
+            <MDBInput
+              data-testid="first-word-input"
+              name="firstWord"
+              onChange={handleChange}
+              value={submission.firstWord}
+              label="First Word"
+              type="text"
+            />
+            <MDBInput
+              id="second-word-input"
+              data-testid="second-word-input"
+              name="secondWord"
+              value={submission.secondWord}
+              onChange={handleChange}
+              label="Second Word"
+              type="text"
+            />
+          </div>
+          <div className="text-center">
+            <MDBBtn
+              onClick={handleSubmitAnagramCheck}
+              data-testid="anagram-submission-button"
+              color="blue"
+              disabled={disableSubmission}
             >
-              Check Anagram
-            </MDBTypography>
-            {resultMessage !== "" && (
-              <div
-                className="alert alert-dark text-center"
-                data-test-id="result-alert"
-                role="alert"
-              >
-                {resultMessage}
-              </div>
-            )}
-            <p className="text-center ">
-              Check if two words are anagrams here.{" "}
-              <strong>Do not include special characters and numbers.</strong>
-            </p>
-            {errorMessage !== "" && (
-              <div
-                className="alert alert-danger text-center"
-                data-test-id="error-alert"
-                role="alert"
-              >
-                {errorMessage}
-              </div>
-            )}
-            <div className="grey-text">
-              <MDBInput
-                id="first-word-input"
-                data-test-id="first-word-input"
-                name="firstWord"
-                onChange={handleChange}
-                label="First Word"
-                group
-                type="text"
-              />
-              <MDBInput
-                id="second-word-input"
-                data-test-id="second-word-input"
-                name="secondWord"
-                onChange={handleChange}
-                label="Second Word"
-                group
-                type="text"
-              />
-            </div>
-            <div className="text-center">
-              <MDBBtn
-                onClick={handleSubmitAnagramCheck}
-                data-test-id="anagram-submission-button"
-                color="blue"
-                disabled={disableSubmission}
-              >
-                Check
-              </MDBBtn>
-            </div>
-          </form>
-        </MDBCardText>
+              Check
+            </MDBBtn>
+          </div>
+        </form>
       </MDBCardBody>
     </MDBCard>
   );

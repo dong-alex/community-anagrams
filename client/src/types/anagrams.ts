@@ -24,3 +24,10 @@ export type AnagramSubmission = {
   firstWord: string;
   secondWord: string;
 };
+
+export type AnagramRequestCardProps = {
+  onSaveAnagram: (
+    firstWord: string,
+    secondWord: string
+  ) => Promise<boolean | never>;
+};

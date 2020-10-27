@@ -18,6 +18,7 @@ export type AnagramReducerState = {
 
 export type TopAnagramsBoardProps = {
   topAnagrams: TopAnagram[];
+  loading: boolean;
 };
 
 export type AnagramSubmission = {
@@ -30,4 +31,11 @@ export type AnagramRequestCardProps = {
     firstWord: string,
     secondWord: string
   ) => Promise<boolean | never>;
+};
+
+export type TopEntryItemProps = {
+  index: number;
+  firstWord: string;
+  secondWord: string;
+  count: number;
 };

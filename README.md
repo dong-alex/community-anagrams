@@ -2,6 +2,14 @@
 
 Go/React/TypeScript SPA that checks if two words are anagrams. As well, provide statistics on the words requested. We store information behind a PostgreSQL database via a local server.
 
+### Technologies Used
+- Golang
+- TypeScript
+- React
+- Jest
+- MDreact
+- PostgreSQL
+
 # Go Server
 
 The Go client has two main endpoints that the SPA will call.
@@ -40,3 +48,9 @@ Run `yarn start` for development
 ### Production
 
 Run `yarn build` and then `yarn serve`
+
+### Assumptions
+- No user flow / authentication / authorization
+- Top 10 anagrams = Top 10 requests of the two words searched for
+- No CI/Containerization within MVP, left as a extension
+

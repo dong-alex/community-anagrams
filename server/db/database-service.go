@@ -32,9 +32,14 @@ func NewDatabaseService(db *gorm.DB) DatabaseService {
 
 // InitializeDB returns a function used to give the database connection. Allows flexibility to what databse connection will be used with the service
 func InitializeDB() (*gorm.DB) {
-	godotenv.Load(".env")
+	env := os.Getenv("APP_ENV")
+	if env == "production" {
+		godotenv.Load(".env.docker")
+	} else {
+		godotenv.Load(".env")
+	}
 
-	var dbURI = fmt.Sprintf("host=localhost port=5432 user=%v dbname=%v sslmode=disable password=%v", os.Getenv("POSTGRESQL_USER"), os.Getenv("POSTGRESQL_DB"), os.Getenv("POSTGRESQL_PASS"))
+	var dbURI = fmt.Sprintf("host=%v port=5432 user=%v dbname=%v sslmode=disable password=%v", os.Getenv("POSTGRES_HOST"), os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_DB"), os.Getenv("POSTGRES_PASSWORD"))
 
   gormDB, err := gorm.Open(postgres.Open(dbURI), &gorm.Config{})
 

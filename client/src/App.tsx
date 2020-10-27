@@ -9,7 +9,7 @@ import { TopAnagram } from "./types";
 
 const App: FunctionComponent = () => {
   const { getTopAnagrams, saveAnagram } = useAnagramService();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [topAnagrams, setTopAnagrams] = useState<TopAnagram[]>([]);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const App: FunctionComponent = () => {
       <Header />
       <MDBContainer>
         <AnagramRequestCard onSaveAnagram={handleSaveAnagram} />
-        <TopAnagramsBoard topAnagrams={topAnagrams} />
+        <TopAnagramsBoard topAnagrams={topAnagrams} loading={loading} />
       </MDBContainer>
     </MDBBox>
   );

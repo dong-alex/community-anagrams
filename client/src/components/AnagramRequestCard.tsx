@@ -13,6 +13,7 @@ const AnagramRequestCard: FunctionComponent<AnagramRequestCardProps> = ({
   onSaveAnagram,
 }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [submissionResult, setSubmissionResult] = useState<boolean>(false);
   const [resultMessage, setResultMessage] = useState<string>("");
   const [disableSubmission, setDisableSubmission] = useState<boolean>(false);
   const [submission, setSubmission] = useState<AnagramSubmission>({
@@ -55,9 +56,7 @@ const AnagramRequestCard: FunctionComponent<AnagramRequestCardProps> = ({
       handleDisplayResult(result);
       return;
     } catch (err) {
-      setErrorMessage(
-        "There was an issue with checking the words, please try again."
-      );
+      setErrorMessage(err.message);
     }
   };
 
@@ -65,13 +64,14 @@ const AnagramRequestCard: FunctionComponent<AnagramRequestCardProps> = ({
     // copy the initial words so that we can check anagrams again
     const { firstWord, secondWord } = submission;
 
-    let savedFirstWord = firstWord;
-    let savedSecondWord = secondWord;
+    const savedFirstWord = firstWord;
+    const savedSecondWord = secondWord;
 
     const successString = `Great! '${savedFirstWord}' and '${savedSecondWord}' are anagrams. Feel free to check other words and see if they are anagrams.`;
     const failureString = `Unfortunately '${savedFirstWord}' and '${savedSecondWord}' are not anagrams. Feel free to check other words and see if they are anagrams.`;
 
     setResultMessage(result ? successString : failureString);
+    setSubmissionResult(result);
   };
 
   return (
@@ -80,7 +80,9 @@ const AnagramRequestCard: FunctionComponent<AnagramRequestCardProps> = ({
         <h4 className="text-center mb-4">Check Anagram</h4>
         {resultMessage !== "" && (
           <div
-            className="alert alert-dark text-center"
+            className={`alert ${
+              submissionResult ? "alert-success" : "alert-danger"
+            } text-center`}
             data-testid="result-alert"
             role="alert"
           >

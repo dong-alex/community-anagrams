@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnagramRequestCard Tests renders the basic card 1`] = `
+<div>
+  <div
+    class="card mt-5"
+    data-test="card"
+  >
+    <div
+      class="card-body"
+      data-test="card-body"
+    >
+      <h4
+        class="text-center mb-4"
+      >
+        Check Anagram
+      </h4>
+      <p
+        class="text-center "
+      >
+        Check if two words are anagrams here.
+         
+        <strong>
+          Do not include special characters and numbers.
+        </strong>
+      </p>
+      <form>
+        <div
+          class="grey-text"
+        >
+          <div
+            class="md-form"
+          >
+            
+            <input
+              aria-disabled="false"
+              class="form-control"
+              data-test="input"
+              data-testid="first-word-input"
+              name="firstWord"
+              type="text"
+              value=""
+            />
+            <label
+              aria-labelledby=""
+              class=""
+              data-error=""
+              data-success=""
+              id=""
+            >
+              First Word
+            </label>
+          </div>
+          <div
+            class="md-form"
+          >
+            
+            <input
+              aria-disabled="false"
+              class="form-control"
+              data-test="input"
+              data-testid="second-word-input"
+              id="second-word-input"
+              name="secondWord"
+              type="text"
+              value=""
+            />
+            <label
+              aria-labelledby=""
+              class=""
+              data-error=""
+              data-success=""
+              for="second-word-input"
+              id=""
+            >
+              Second Word
+            </label>
+          </div>
+        </div>
+        <div
+          class="text-center"
+        >
+          <button
+            class="btn-blue btn Ripple-parent disabled"
+            data-test="button"
+            data-testid="anagram-submission-button"
+            disabled=""
+            type="button"
+          >
+            Check
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

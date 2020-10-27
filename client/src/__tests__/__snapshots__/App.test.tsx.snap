@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Overall App Tests renders the app without data 1`] = `
+<div>
+  <div
+    data-test="box"
+  >
+    <nav
+      class="navbar navbar-expand-md"
+      data-test="navbar"
+      role="navigation"
+    >
+      <ul
+        class="navbar-nav justify-content-around w-100"
+        data-test="navbar-nav"
+      >
+        <li
+          class="nav-item"
+          data-test="nav-item"
+        >
+          <h2
+            style="user-select: none;"
+          >
+            Community Anagrams
+          </h2>
+        </li>
+      </ul>
+    </nav>
+    <div
+      class="container"
+      data-test="container"
+    >
+      <div
+        class="card mt-5"
+        data-test="card"
+      >
+        <div
+          class="card-body"
+          data-test="card-body"
+        >
+          <h4
+            class="text-center mb-4"
+          >
+            Check Anagram
+          </h4>
+          <p
+            class="text-center "
+          >
+            Check if two words are anagrams here.
+             
+            <strong>
+              Do not include special characters and numbers.
+            </strong>
+          </p>
+          <form>
+            <div
+              class="grey-text"
+            >
+              <div
+                class="md-form"
+              >
+                
+                <input
+                  aria-disabled="false"
+                  class="form-control"
+                  data-test="input"
+                  data-testid="first-word-input"
+                  name="firstWord"
+                  type="text"
+                  value=""
+                />
+                <label
+                  aria-labelledby=""
+                  class=""
+                  data-error=""
+                  data-success=""
+                  id=""
+                >
+                  First Word
+                </label>
+              </div>
+              <div
+                class="md-form"
+              >
+                
+                <input
+                  aria-disabled="false"
+                  class="form-control"
+                  data-test="input"
+                  data-testid="second-word-input"
+                  id="second-word-input"
+                  name="secondWord"
+                  type="text"
+                  value=""
+                />
+                <label
+                  aria-labelledby=""
+                  class=""
+                  data-error=""
+                  data-success=""
+                  for="second-word-input"
+                  id=""
+                >
+                  Second Word
+                </label>
+              </div>
+            </div>
+            <div
+              class="text-center"
+            >
+              <button
+                class="btn-blue btn Ripple-parent"
+                data-test="button"
+                data-testid="anagram-submission-button"
+                type="button"
+              >
+                Check
+                <div
+                  class="Ripple "
+                  data-test="waves"
+                  style="top: 0px; left: 0px; width: 0px; height: 0px;"
+                />
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="mb-5"
+        data-test="box"
+      >
+        <h5
+          class="text-center pt-5 pb-5"
+          data-testid="top-anagrams-board-header"
+        >
+          Top 10 Most Requested Anagram Checks
+        </h5>
+        <ul
+          class="list-group"
+          data-test="list-group"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

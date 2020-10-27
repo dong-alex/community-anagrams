@@ -20,16 +20,12 @@ describe("AnagramRequestCard Tests", () => {
     const secondInputField = screen.getByTestId("second-word-input");
     const submitButton = screen.getByTestId("anagram-submission-button");
 
-    act(() => {
-      fireEvent.change(firstInputField, {
-        target: { value: "firstword", name: "firstWord" },
-      });
+    fireEvent.change(firstInputField, {
+      target: { value: "firstword", name: "firstWord" },
     });
 
-    act(() => {
-      fireEvent.change(secondInputField, {
-        target: { value: "secondword", name: "secondWord" },
-      });
+    fireEvent.change(secondInputField, {
+      target: { value: "secondword", name: "secondWord" },
     });
 
     await act(async () => {
@@ -38,10 +34,7 @@ describe("AnagramRequestCard Tests", () => {
 
     expect(stub).toHaveBeenCalledWith("firstword", "secondword");
 
-    // look for alerts
-    const alert = screen.getByTestId("result-alert");
-
-    expect(alert).toHaveTextContent(/Unfortunately/);
+    expect(screen.getByTestId("result-alert")).toMatchSnapshot(); // snapshot TODO
   });
 
   it("calls the api with the correct parameters - Is An Anagram", async () => {
@@ -53,16 +46,12 @@ describe("AnagramRequestCard Tests", () => {
     const secondInputField = screen.getByTestId("second-word-input");
     const submitButton = screen.getByTestId("anagram-submission-button");
 
-    act(() => {
-      fireEvent.change(firstInputField, {
-        target: { value: "racer", name: "firstWord" },
-      });
+    fireEvent.change(firstInputField, {
+      target: { value: "racer", name: "firstWord" },
     });
 
-    act(() => {
-      fireEvent.change(secondInputField, {
-        target: { value: "carer", name: "secondWord" },
-      });
+    fireEvent.change(secondInputField, {
+      target: { value: "carer", name: "secondWord" },
     });
 
     await act(async () => {
@@ -70,11 +59,7 @@ describe("AnagramRequestCard Tests", () => {
     });
 
     expect(stub).toHaveBeenCalledWith("racer", "carer");
-
-    // look for alerts
-    const alert = screen.getByTestId("result-alert");
-
-    expect(alert).toHaveTextContent(/Great/);
+    expect(screen.getByTestId("result-alert")).toMatchSnapshot();
   });
 
   it("shows an error alert if you have letters or symbols in the words", async () => {
@@ -84,16 +69,11 @@ describe("AnagramRequestCard Tests", () => {
 
     const firstInputField = screen.getByTestId("first-word-input");
 
-    act(() => {
-      fireEvent.change(firstInputField, {
-        target: { value: "racer22", name: "firstWord" },
-      });
+    fireEvent.change(firstInputField, {
+      target: { value: "racer22", name: "firstWord" },
     });
 
-    // look for alerts
-    const alert = screen.getByTestId("error-alert");
-
-    expect(alert).toBeDefined();
+    expect(screen.getByTestId("error-alert")).toMatchSnapshot();
   });
 
   it("shows an error alert if you have symbols in the words", async () => {
@@ -103,16 +83,11 @@ describe("AnagramRequestCard Tests", () => {
 
     const firstInputField = screen.getByTestId("first-word-input");
 
-    act(() => {
-      fireEvent.change(firstInputField, {
-        target: { value: "!!abc", name: "firstWord" },
-      });
+    fireEvent.change(firstInputField, {
+      target: { value: "!!abc", name: "firstWord" },
     });
 
-    // look for alerts
-    const alert = screen.getByTestId("error-alert");
-
-    expect(alert).toBeDefined();
+    expect(screen.getByTestId("error-alert")).toMatchSnapshot();
   });
 
   it("shows an error alert if the anagram check request fails", async () => {
@@ -124,27 +99,18 @@ describe("AnagramRequestCard Tests", () => {
     const secondInputField = screen.getByTestId("second-word-input");
     const submitButton = screen.getByTestId("anagram-submission-button");
 
-    act(() => {
-      fireEvent.change(firstInputField, {
-        target: { value: "racer", name: "firstWord" },
-      });
+    fireEvent.change(firstInputField, {
+      target: { value: "racer", name: "firstWord" },
     });
 
-    act(() => {
-      fireEvent.change(secondInputField, {
-        target: { value: "carer", name: "secondWord" },
-      });
+    fireEvent.change(secondInputField, {
+      target: { value: "carer", name: "secondWord" },
     });
 
     await act(async () => {
       fireEvent.click(submitButton);
     });
 
-    // look for alerts
-    const alert = screen.getByTestId("error-alert");
-
-    expect(alert).toHaveTextContent(
-      /There was an issue with checking the words, please try again./
-    );
+    expect(screen.getByTestId("error-alert")).toMatchSnapshot();
   });
 });

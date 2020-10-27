@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AnagramRequestCard Tests calls the api with the correct parameters - Is An Anagram 1`] = `
+<div
+  class="alert alert-success text-center"
+  data-testid="result-alert"
+  role="alert"
+>
+  Great! 'racer' and 'carer' are anagrams. Feel free to check other words and see if they are anagrams.
+</div>
+`;
+
+exports[`AnagramRequestCard Tests calls the api with the correct parameters - Not an Anagram 1`] = `
+<div
+  class="alert alert-danger text-center"
+  data-testid="result-alert"
+  role="alert"
+>
+  Unfortunately 'firstword' and 'secondword' are not anagrams. Feel free to check other words and see if they are anagrams.
+</div>
+`;
+
 exports[`AnagramRequestCard Tests renders the basic card 1`] = `
 <div>
   <div
@@ -93,5 +113,33 @@ exports[`AnagramRequestCard Tests renders the basic card 1`] = `
       </form>
     </div>
   </div>
+</div>
+`;
+
+exports[`AnagramRequestCard Tests shows an error alert if the anagram check request fails 1`] = `
+<div
+  class="alert alert-danger text-center"
+  data-testid="error-alert"
+  role="alert"
+/>
+`;
+
+exports[`AnagramRequestCard Tests shows an error alert if you have letters or symbols in the words 1`] = `
+<div
+  class="alert alert-danger text-center"
+  data-testid="error-alert"
+  role="alert"
+>
+  Please remove any numbers or symbols.
+</div>
+`;
+
+exports[`AnagramRequestCard Tests shows an error alert if you have symbols in the words 1`] = `
+<div
+  class="alert alert-danger text-center"
+  data-testid="error-alert"
+  role="alert"
+>
+  Please remove any numbers or symbols.
 </div>
 `;

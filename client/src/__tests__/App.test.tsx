@@ -12,9 +12,9 @@ describe("Overall App Tests", () => {
 
   it("renders the app without data", async () => {
     (useAnagramService as jest.Mock).mockReturnValue({
-      getAllAnagrams: () => Promise.resolve([]),
-      getTopAnagrams: () => Promise.resolve([]),
-      saveAnagram: () => Promise.resolve(false),
+      getAllAnagrams: jest.fn().mockResolvedValue([]),
+      getTopAnagrams: jest.fn().mockResolvedValue([]),
+      saveAnagram: jest.fn().mockResolvedValue(false),
     });
 
     await act(async () => {
@@ -25,51 +25,45 @@ describe("Overall App Tests", () => {
 
   it("lists no top anagram requests initially", async () => {
     (useAnagramService as jest.Mock).mockReturnValue({
-      getAllAnagrams: () => Promise.resolve([]),
-      getTopAnagrams: () => Promise.resolve([]),
-      saveAnagram: () => Promise.resolve(false),
+      getAllAnagrams: jest.fn().mockResolvedValue([]),
+      getTopAnagrams: jest.fn().mockResolvedValue([]),
+      saveAnagram: jest.fn().mockResolvedValue(false),
     });
 
-    // await to wait for the dispatch and fetching
     await act(async () => {
       render(<App />);
     });
 
     expect(screen.queryAllByTestId("top-anagram-item")).toHaveLength(0);
-    expect(screen.getByTestId("top-anagrams-board-header")).toHaveTextContent(
-      "Top 10 Most Requested Anagram Checks"
-    );
+    expect(screen.getByTestId("top-anagrams-board-header")).toMatchSnapshot();
   });
 
   it("lists top anagram requests when they exist", async () => {
+    const stub = jest.fn().mockResolvedValue([
+      { firstWord: "testing", secondWord: "testing", count: 10 },
+      { firstWord: "tester", secondWord: "tester", count: 9 },
+    ]);
+
     (useAnagramService as jest.Mock).mockReturnValue({
-      getAllAnagrams: () => Promise.resolve([]),
-      getTopAnagrams: () =>
-        Promise.resolve([
-          { firstWord: "testing", secondWord: "testing", count: 10 },
-          { firstWord: "tester", secondWord: "tester", count: 9 },
-        ]),
-      saveAnagram: () => Promise.resolve(false),
+      getAllAnagrams: jest.fn().mockResolvedValue([]),
+      getTopAnagrams: stub,
+      saveAnagram: jest.fn().mockResolvedValue(false),
     });
 
-    // await to wait for the dispatch and fetching
     await act(async () => {
       render(<App />);
     });
 
+    expect(stub).toBeCalledTimes(1);
     const items = await screen.findAllByTestId("top-anagram-item");
-    expect(items).toHaveLength(2);
-    expect(items[0]).toHaveTextContent(/10/);
-    expect(screen.getByTestId("top-anagrams-board-header")).toHaveTextContent(
-      "Top 10 Most Requested Anagram Checks"
-    );
+    expect(items).toMatchSnapshot();
   });
 
   it("should handle saving anagrams when valid", async () => {
     (useAnagramService as jest.Mock).mockReturnValue({
-      getAllAnagrams: () => Promise.resolve([]),
-      getTopAnagrams: () => Promise.resolve([]),
-      saveAnagram: () => Promise.resolve(false),
+      getAllAnagrams: jest.fn().mockResolvedValue([]),
+      getTopAnagrams: jest.fn().mockResolvedValue([]),
+      saveAnagram: jest.fn().mockResolvedValue(false),
     });
 
     render(<App />);
@@ -77,33 +71,27 @@ describe("Overall App Tests", () => {
     const secondInputField = screen.getByTestId("second-word-input");
     const submitButton = screen.getByTestId("anagram-submission-button");
 
-    act(() => {
-      fireEvent.change(firstInputField, {
-        target: { value: "racer", name: "firstWord" },
-      });
+    fireEvent.change(firstInputField, {
+      target: { value: "racer", name: "firstWord" },
     });
 
-    act(() => {
-      fireEvent.change(secondInputField, {
-        target: { value: "carer", name: "secondWord" },
-      });
+    fireEvent.change(secondInputField, {
+      target: { value: "carer", name: "secondWord" },
     });
 
     await act(async () => {
       fireEvent.click(submitButton);
     });
 
-    // look for alerts
-    const alert = screen.getByTestId("result-alert");
-
-    expect(alert).toBeDefined();
+    expect(screen.getByTestId("result-alert")).toMatchSnapshot();
   });
 
   it("should handle not saving anagrams when invalid", async () => {
     const spy = jest.fn();
+
     (useAnagramService as jest.Mock).mockReturnValue({
-      getAllAnagrams: () => Promise.resolve([]),
-      getTopAnagrams: () => Promise.resolve([]),
+      getAllAnagrams: jest.fn().mockResolvedValue([]),
+      getTopAnagrams: jest.fn().mockResolvedValue([]),
       saveAnagram: spy,
     });
 
@@ -112,36 +100,28 @@ describe("Overall App Tests", () => {
     const secondInputField = screen.getByTestId("second-word-input");
     const submitButton = screen.getByTestId("anagram-submission-button");
 
-    act(() => {
-      fireEvent.change(firstInputField, {
-        target: { value: "ra2cer", name: "firstWord" },
-      });
+    fireEvent.change(firstInputField, {
+      target: { value: "ra2cer", name: "firstWord" },
     });
 
-    act(() => {
-      fireEvent.change(secondInputField, {
-        target: { value: "carer", name: "secondWord" },
-      });
+    fireEvent.change(secondInputField, {
+      target: { value: "carer", name: "secondWord" },
     });
 
     await act(async () => {
       fireEvent.click(submitButton);
     });
 
-    // look for alerts
-    const alert = screen.getByTestId("error-alert");
-
     expect(spy).not.toHaveBeenCalled();
-    expect(alert).toHaveTextContent(
-      /There was an issue with checking the words, please try again./
-    );
+    expect(screen.getByTestId("error-alert")).toMatchSnapshot();
   });
 
   it("should handle error when saving anagram", async () => {
+    // TODO: change all test descriptions to use "should"
     const stub = jest.fn().mockRejectedValue("error when submitting");
     (useAnagramService as jest.Mock).mockReturnValue({
-      getAllAnagrams: () => Promise.resolve([]),
-      getTopAnagrams: () => Promise.resolve([]),
+      getAllAnagrams: jest.fn().mockResolvedValue([]),
+      getTopAnagrams: jest.fn().mockResolvedValue([]),
       saveAnagram: stub,
     });
 
@@ -150,28 +130,19 @@ describe("Overall App Tests", () => {
     const secondInputField = screen.getByTestId("second-word-input");
     const submitButton = screen.getByTestId("anagram-submission-button");
 
-    act(() => {
-      fireEvent.change(firstInputField, {
-        target: { value: "racer", name: "firstWord" },
-      });
+    fireEvent.change(firstInputField, {
+      target: { value: "racer", name: "firstWord" },
     });
 
-    act(() => {
-      fireEvent.change(secondInputField, {
-        target: { value: "carer", name: "secondWord" },
-      });
+    fireEvent.change(secondInputField, {
+      target: { value: "carer", name: "secondWord" },
     });
 
     await act(async () => {
       fireEvent.click(submitButton);
     });
 
-    // look for alerts
-    const alert = screen.getByTestId("error-alert");
-
     expect(stub).toHaveBeenCalledTimes(1);
-    expect(alert).toHaveTextContent(
-      /There was an issue with checking the words, please try again./
-    );
+    expect(screen.getByTestId("error-alert")).toMatchSnapshot();
   });
 });

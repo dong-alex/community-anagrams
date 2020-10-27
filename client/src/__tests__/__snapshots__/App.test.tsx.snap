@@ -1,5 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Overall App Tests lists no top anagram requests initially 1`] = `
+<h5
+  class="text-center pt-5 pb-5"
+  data-testid="top-anagrams-board-header"
+>
+  Top 10 Most Requested Anagram Checks
+</h5>
+`;
+
+exports[`Overall App Tests lists top anagram requests when they exist 1`] = `
+Array [
+  <li
+    class="list-group-item d-flex justify-content-between list-group-item-undefined"
+    data-test="list-group-item"
+    data-testid="top-anagram-item"
+    style="user-select: none;"
+  >
+    <span
+      class="ml-3"
+    >
+      1
+    </span>
+    <span>
+      testing
+       - 
+      testing
+    </span>
+    <span
+      class="badge light-blue badge-light-blue badge-pill mr-3"
+      data-test="badge"
+    >
+      10
+    </span>
+  </li>,
+  <li
+    class="list-group-item d-flex justify-content-between list-group-item-undefined"
+    data-test="list-group-item"
+    data-testid="top-anagram-item"
+    style="user-select: none;"
+  >
+    <span
+      class="ml-3"
+    >
+      2
+    </span>
+    <span>
+      tester
+       - 
+      tester
+    </span>
+    <span
+      class="badge light-blue badge-light-blue badge-pill mr-3"
+      data-test="badge"
+    >
+      9
+    </span>
+  </li>,
+]
+`;
+
 exports[`Overall App Tests renders the app without data 1`] = `
 <div>
   <div
@@ -135,12 +195,46 @@ exports[`Overall App Tests renders the app without data 1`] = `
         >
           Top 10 Most Requested Anagram Checks
         </h5>
-        <ul
-          class="list-group"
-          data-test="list-group"
-        />
+        <div
+          class="h-100 w-100 d-flex justify-content-center align-middle"
+          data-test="box"
+        >
+          <div
+            class="spinner-border m-auto"
+            role="status"
+            style="width: 15rem; height: 15rem;"
+          />
+        </div>
       </div>
     </div>
   </div>
+</div>
+`;
+
+exports[`Overall App Tests should handle error when saving anagram 1`] = `
+<div
+  class="alert alert-danger text-center"
+  data-testid="error-alert"
+  role="alert"
+/>
+`;
+
+exports[`Overall App Tests should handle not saving anagrams when invalid 1`] = `
+<div
+  class="alert alert-danger text-center"
+  data-testid="error-alert"
+  role="alert"
+>
+  Please remove any numbers or special symbols from your words and try again.
+</div>
+`;
+
+exports[`Overall App Tests should handle saving anagrams when valid 1`] = `
+<div
+  class="alert alert-danger text-center"
+  data-testid="result-alert"
+  role="alert"
+>
+  Unfortunately 'racer' and 'carer' are not anagrams. Feel free to check other words and see if they are anagrams.
 </div>
 `;

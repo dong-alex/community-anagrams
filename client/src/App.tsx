@@ -20,7 +20,7 @@ const App: FunctionComponent = () => {
     };
 
     fetch();
-  }, []);
+  }, [getTopAnagrams]);
 
   const handleSaveAnagram = async (
     firstWord: string,

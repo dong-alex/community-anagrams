@@ -34,7 +34,7 @@ func NewDatabaseService(db *gorm.DB) DatabaseService {
 func InitializeDB() (*gorm.DB) {
 	godotenv.Load(".env")
 
-	var dbURI = fmt.Sprintf("host=localhost port=5432 user=%v dbname=%v sslmode=disable password=%v", os.Getenv("POSTGRESQL_USER"), os.Getenv("POSTGRESQL_DB"), os.Getenv("POSTGRESQL_PASS"))
+	var dbURI = fmt.Sprintf("host=%v port=5432 user=%v dbname=%v sslmode=disable password=%v", os.Getenv("POSTGRES_HOST"), os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_DB"), os.Getenv("POSTGRES_PASSWORD"))
 
   gormDB, err := gorm.Open(postgres.Open(dbURI), &gorm.Config{})
 

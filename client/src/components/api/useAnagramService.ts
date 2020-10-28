@@ -24,7 +24,7 @@ const useAnagramService = () => {
 
   const getTopAnagrams = async (): Promise<TopAnagram[] | never> => {
     const { data }: { data: TopAnagram[] } = await ConfiguredAxios.get("/top");
-    return data;
+    return data || [];
   };
 
   return {

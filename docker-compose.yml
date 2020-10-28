@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=localhost
+      - POSTGRES_DB=anagrams
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=adong1379
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    env_file: ./server/.env
+    depends_on:
+      - db
+    networks:
+      - default
+    ports:
+      - "8080:8080"
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    depends_on:
+      - server
+    networks:
+      - default
+    ports:
+      - "3000:3000"
+      - "49153:49153"
+volumes:
+  data:

@@ -54,3 +54,10 @@ Run `yarn build` and then `yarn serve`
 - Top 10 anagrams = Top 10 requests of the two words searched for
 - No CI/Containerization within MVP, left as a extension
 
+### Docker
+
+You can run this entire application under one docker command.
+
+`docker-compose up --build`
+
+This will create a temporary database that will store requests. But the data may not be persisted upon container resets.

@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  db:
+  postgres:
     image: postgres
     restart: always
     environment:
@@ -17,8 +17,9 @@ services:
       context: ./server
       dockerfile: Dockerfile
     env_file: ./server/.env
+    restart: always
     depends_on:
-      - db
+      - postgres
     networks:
       - default
     ports:
